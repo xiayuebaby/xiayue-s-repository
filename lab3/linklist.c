@@ -4,7 +4,7 @@
 #include<time.h>
 #include "linklist.h"
 
-tDateNode* FindCmd(tDataNode *head,char *cmd)
+tDataNode* FindCmd(tDataNode *head,char *cmd)
 {
     if(head==NULL||cmd==NULL)
     {

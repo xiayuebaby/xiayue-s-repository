@@ -6,11 +6,11 @@ typedef struct DataNode
     struct DataNode *next;
 }tDataNode;
 
-/* find a command in the linklist and return the pointer */
-tDataNode* FindCmd(tDataNode *head, char *cmd);
+/* find a command in th linklist and return the pointer */
+tDataNode* FindCmd(tDataNode *head,char *cmd);
 
 /* show all commands */
 int ShowAllCmd(tDataNode *head);
 
 /* show local time */
-int ShowLocalTime(); 
+int ShowLocalTime();

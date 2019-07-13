@@ -219,4 +219,122 @@ public class Solution {
 
 *12.表示数值的字符串 https://www.nowcoder.com/practice/6f8c901d091949a5837e24bb82a731f2?tpId=13&tqId=11206&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
 正则表达式匹配规则：
+[]  ： 字符集合
+()  ： 分组
+?   ： 重复 0 ~ 1 次
++   ： 重复 1 ~ n 次
+*   ： 重复 0 ~ n 次
+.   ： 任意字符
+\\. ： 转义后的 .
+\\d ： 数字
+public class Solution {
+    public boolean isNumeric(char[] str) {
+        String string = String.valueOf(str);
+        return string.matches("[+-]?\\d*(\\.\\d+)?([eE][+-]?\\d+)?");
+    }
+}
+
+13.调整数组顺序 https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?tpId=13&tqId=11166&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking
+public class Solution {
+    public void reOrderArray(int [] array) {
+        int length = array.length;
+        int[] odd = new int[length];
+        int[] even = new int[length];
+        int oddIndex = 0;
+        int evenIndex = 0;
+        for(int i=0;i<length;i++){
+            if(array[i] % 2 == 0){
+                even[evenIndex] = array[i];
+                evenIndex ++;
+            }else{
+                odd[oddIndex] = array[i];
+                oddIndex ++;
+            }
+        }
+        for(int i=0;i<oddIndex;i++){
+            array[i] = odd[i];
+        }
+        for(int i=oddIndex;i<length;i++){
+            array[i] = even[i-oddIndex];
+        }
+    }
+}
+14.链表中倒数第k个结点 https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking
+public class Solution {
+    public ListNode FindKthToTail(ListNode head,int k) {
+        if(head == null) return head;
+        ListNode fast = head;
+        for(int i=0;i<k;i++){
+            if(fast == null) return null;
+            fast = fast.next;
+        }
+        while(fast != null){
+            fast = fast.next;
+            head = head.next;
+        }
+        return head;
+    }
+}
+
+15.链表中环的入口结点
+public class Solution {
+
+    public ListNode EntryNodeOfLoop(ListNode pHead)
+    {
+        if(pHead == null || pHead.next == null) return null;
+        ListNode p1 = pHead;
+        ListNode p2 = pHead;
+        while(p2 != null && p2.next != null){
+            p1 = p1.next;
+            p2 = p2.next.next;
+            if(p1 == p2){
+                p2 = pHead;
+                while(p1 != p2){
+                    p1 = p1.next;
+                    p2 = p2.next;
+                }
+                if(p1 == p2) return p1;
+            }
+        }
+        return null;
+    }
+}
+
+16.反转链表
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+        if(head == null) return head;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode next = head.next;
+        while(cur != null){
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+}
+
+17.合并两个排序的链表
+public class Solution {
+    public ListNode Merge(ListNode list1,ListNode list2) {
+        if(list1 == null || list2 == null) return list1 == null ? list2 : list1;
+        ListNode next = null;
+        ListNode head = list1.val > list2.val ? list2 : list1;
+        while(list1 != null && list2 != null){
+            if(list1.val <= list2.val){
+                next = list1.next;
+                list1.next = list2;
+                list1 = next;
+            }else{
+                next = list2.next;
+                list2.next = list1;
+                list2 = next;
+            }
+        }
+        return head;
+    }
+}
 

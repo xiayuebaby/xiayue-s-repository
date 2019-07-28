@@ -1,0 +1,89 @@
+1.冒泡排序--交换排序
+public void bubbleSort(int[] arr){
+   int length = arr.length;
+   int temp = 0;
+   for(int i=0;i<length-1;i++){
+       for(int j=0;j<length-1-i;j++){
+           if(arr[j] < arr[j+1]){
+              temp = arr[j];
+              arr[j] = arr[j+1];
+              arr[j+1] = temp;
+           }
+       }
+   }
+}
+时间复杂度：O(n^2) 空间复杂度：O(1) 稳定 数据越接近正序，冒泡排序性能越好
+优化：加入标志性变量，用于标志某一趟排序中是否交换了数据，如果没有，说明已经有序。
+public void bubbleSort(int[] arr){
+   int length = arr.length;
+   int temp = 0;
+   boolean exchange = false;
+   for(int i=0;i<length-1;i++){
+       for(int j=0;j<length-1-i;j++){
+           if(arr[j] < arr[j+1]){
+              temp = arr[j];
+              arr[j] = arr[j+1];
+              arr[j+1] = temp;
+              exchange = true;
+           }
+       }
+       if(!exchange){break;}
+   }
+}
+
+2.快速排序--交换排序
+通过一次排序将数据分割成独立的两部分，左边比它小，右边比它大，再按此方法对这两部分数据分别进行快排，递归达到有序。
+public int division(int[] arr,int left,int right){
+    int base = arr[left];
+    while(left < right){
+        while(left<right && arr[right]>=base){right--;}
+        arr[left] = arr[right];
+        while(left<right && arr[left]<=base){left++;}
+        arr[right] = arr[left];
+    }
+    arr[left] = base;
+    return left;
+}
+public void quickSort(int[] arr,int left,int right){
+   if(left < right){
+       int base = division(arr,left,right);
+       quickSort(arr,left,base-1);
+       quickSort(arr,base+1,right);
+   }
+}
+时间复杂度：O(Nlog2N) 空间复杂度：O(Nlog2N) 不稳定 数据越随机分布性能越好
+
+3.插入排序
+public static void insertSort(int[] arr){
+        int temp = 0;
+        int j = 0;
+        for(int i=1;i<arr.length;i++){
+            temp = arr[i];
+            for(j=i-1;j>=0 && arr[j] > temp;j--){
+                 arr[j+1] = arr[j];
+            }
+            arr[j+1] = temp;
+        }
+    }
+时间复杂度：O(n^2) 空间复杂度：O(1) 稳定 数据越接近正序，排序性能越好
+
+4.希尔排序--插入排序
+public static void shellSort(int[] arr){
+   int gap = arr.length/2;
+   int temp = 0;
+   int j = 0;
+   while(gap >= 1){
+    for(int i=gap;i<arr.length;i++){
+            temp = arr[i];
+            for(j=i-gap;j>=0 && arr[j] > temp;j=j-gap){
+                 arr[j+gap] = arr[j];
+            }
+            arr[j+gap] = temp;
+        }
+        gap = gap/2;
+   }
+}
+时间复杂度：O(Nlog2N) 空间复杂度：O(1) 不稳定
+
+5.堆排序
+堆是顺序存储的完全二叉树
